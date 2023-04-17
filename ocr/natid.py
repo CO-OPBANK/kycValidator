@@ -13,7 +13,10 @@ from utils import threshold
 
 def natid_recognizer(img, lang="eng"):
     """Process a PIL image."""
-    gray_img = get_grayscale(img)
+    
+    tmp_image = np.array(img)
+    
+    gray_img = get_grayscale(tmp_image)
 
     thresh = threshold(gray_img)
 
