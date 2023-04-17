@@ -7,17 +7,9 @@ import json
 import csv
 from io import StringIO
 
-def get_grayscale(img):
-    tmp_image = np.array(img)
-    return cv2.cvtColor(tmp_image, cv2.COLOR_BGR2GRAY)
-
-# noise removal
-def remove_noise(img):
-    tmp_image = np.array(img)
-    return cv2.medianBlur(tmp_image,5)
-
-def threshold(img):
-    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+from utils import get_grayscale
+from utils import remove_noise
+from utils import threshold
 
 def natid_recognizer(img, lang="eng"):
     """Process a PIL image."""
