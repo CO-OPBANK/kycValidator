@@ -1,1 +1,1 @@
-from .recognizer import recognize
+from .natid import natid_recognizer

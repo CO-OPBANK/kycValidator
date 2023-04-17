@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse
 from PIL import Image
 from starlette.responses import Response
 
-from ocr import recognizer
+from ocr import natid_recognizer
 
 # FastAPI
 app = FastAPI(
@@ -38,5 +38,5 @@ async def root():
 def process_ocr(file: UploadFile = File(...)):
     file_bytes = file.file.read()
     image = Image.open(BytesIO(file_bytes))
-    return recognizer.recognize(image)
+    return natid_recognizer(image)
 

@@ -19,7 +19,7 @@ def remove_noise(img):
 def threshold(img):
     return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-def recognize(img, lang="eng"):
+def natid_recognizer(img, lang="eng"):
     """Process a PIL image."""
     gray_img = get_grayscale(img)
 
