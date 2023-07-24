@@ -1,1 +1,0 @@
-from .natid import natid_recognizer

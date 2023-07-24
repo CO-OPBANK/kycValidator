@@ -11,7 +11,8 @@ from utils import get_grayscale
 from utils import remove_noise
 from utils import threshold
 
-def natid_recognizer(img, lang="eng"):
+
+def psprt_recognizer(img, lang="eng"):
     """Process a PIL image."""
     
     tmp_image = np.array(img)
@@ -26,6 +27,8 @@ def natid_recognizer(img, lang="eng"):
 
     custom_config = r'-l eng --oem 3 --psm 6'
     extracted = pytesseract.image_to_string(img, config=custom_config)
+
+    print(extracted)
 
     d = pytesseract.image_to_data(img)
     print(d)
