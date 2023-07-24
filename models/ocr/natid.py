@@ -32,14 +32,13 @@ def natid_recognizer(img, lang="eng"):
     print("New Data")
     print(d)
 
-    digit_pattern = '<[B8O0]{2}(\d+)'
+    digit_pattern = '<[B8O0a]{2}(\d+)'
 
     extracted_text = []
 
-    print(digit_pattern)
-
     for row in d:
-        if int(float(row['conf'])) > 60:
+        # print(int(float(row['conf'])))
+        if int(float(row['conf'])) > 40:
             match = re.search(digit_pattern, row['text'])
             print("Match")
             print(row['text'])
