@@ -24,9 +24,3 @@ async def process_ocr(file: UploadFile = File(...)):
     file_bytes = file.file.read()
     image = Image.open(BytesIO(file_bytes))
     return psprt_recognizer(image)
-
-
-@router.get("/status")
-async def get_status():
-    return {"message": "ocr ok"}
-
