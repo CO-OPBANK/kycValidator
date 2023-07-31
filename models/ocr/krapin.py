@@ -1,18 +1,20 @@
 import re
+import pdf2image
 from utils import format_image
 from services import extract_text
+import pytesseract
 
 
-def get_psprt(img, lang="eng"):
+def get_krapin(img):
 
-    fmtd_img = format_image(img)
+    images = pdf2image.convert_from_bytes(img)
+    image = images[0]
+    # text = pytesseract.image_to_string(image)
+    # print(text)
 
-    get_text = extract_text(fmtd_img)
+    get_text = extract_text(image)
 
-    print(get_text)
-
-    digit_pattern = '[A4]{1}(\d+)'
-
+    digit_pattern = 'A(?P<id>\d{9}[A-Z])'
     extracted_text = []
 
     for row in get_text:
@@ -20,12 +22,9 @@ def get_psprt(img, lang="eng"):
         if match:
             extracted_text.append("A" + match.group(1))
 
-    if isinstance(extracted_text, list):
-        extracted_text = extracted_text[0]
-
     print(extracted_text)
 
     if not extracted_text:
         return {"status": "error", "message": "Kindly retry"}
-    
+
     return {"status": "success", "message": "" .join(extracted_text)}

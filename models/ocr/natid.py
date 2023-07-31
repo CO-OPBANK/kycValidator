@@ -12,7 +12,6 @@ def get_natid(img):
     extracted_text = []
 
     for row in get_text:
-        print(row)
         match = re.search(digit_pattern, row)
         if match:
             extracted_text.append(match.group(1))
