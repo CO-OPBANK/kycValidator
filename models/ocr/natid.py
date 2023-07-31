@@ -1,14 +1,11 @@
 import re
-from dotenv import load_dotenv
 from utils import format_image
 from services import extract_text
 
 
 def natid_recognizer(img):
-    load_dotenv()
 
     fmtd_img = format_image(img)
-
     get_text = extract_text(fmtd_img)
 
     digit_pattern = '<[B8O0a]{2}(\d+)'

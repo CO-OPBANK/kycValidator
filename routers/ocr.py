@@ -23,5 +23,5 @@ async def process_ocr(file: UploadFile = File(...)):
 @router.post("/psprt")
 async def process_ocr(file: UploadFile = File(...)):
     file_bytes = file.file.read()
-    image = Image.open(BytesIO(file_bytes))
+    image = np.frombuffer(file_bytes, np.uint8)
     return psprt_recognizer(image)
