@@ -1,2 +1,3 @@
-from .natid import natid_recognizer
-from .psprt import psprt_recognizer
+from .natid import get_natid
+from .psprt import get_psprt
+from .servid import get_servid

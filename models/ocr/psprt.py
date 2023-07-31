@@ -3,7 +3,7 @@ from utils import format_image
 from services import extract_text
 
 
-def psprt_recognizer(img, lang="eng"):
+def get_psprt(img, lang="eng"):
 
     fmtd_img = format_image(img)
 

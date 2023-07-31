@@ -3,7 +3,7 @@ from utils import format_image
 from services import extract_text
 
 
-def natid_recognizer(img):
+def get_natid(img):
 
     fmtd_img = format_image(img)
     get_text = extract_text(fmtd_img)
