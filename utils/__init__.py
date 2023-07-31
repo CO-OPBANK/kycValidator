@@ -1,1 +1,1 @@
-from .tesseract_utils import format_image
+from .format_image import format_image

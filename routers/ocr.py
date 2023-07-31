@@ -4,8 +4,8 @@ import numpy as np
 from fastapi import APIRouter, UploadFile, File
 from PIL import Image
 
-from models.ocr import natid_recognizer
-from models.ocr import psprt_recognizer
+from models import natid_recognizer
+from models import psprt_recognizer
 
 router = APIRouter(
     prefix="/ocr/extract",

@@ -1,1 +1,1 @@
-from .ocr_extract import extract_text
+from .ocr import extract_text
