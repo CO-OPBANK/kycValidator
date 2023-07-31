@@ -7,44 +7,53 @@ import json
 import csv
 from io import StringIO
 
-from utils import get_grayscale
-from utils import remove_noise
-from utils import threshold
-
 
 def psprt_recognizer(img, lang="eng"):
     """Process a PIL image."""
-    
-    tmp_image = np.array(img)
-    
-    gray_img = get_grayscale(tmp_image)
+    # tmp_image = np.array(img)
+    #
+    # gray_img = get_grayscale(tmp_image)
+    #
+    # thresh = threshold(gray_img)
+    #
+    # noisy_img = remove_noise(thresh)
+    #
+    # new_image = Image.fromarray(noisy_img)
+    #
+    # custom_config = r'-l eng --oem 3 --psm 6'
+    # extracted = pytesseract.image_to_string(img, config=custom_config)
+    #
 
-    thresh = threshold(gray_img)
-
-    noisy_img = remove_noise(thresh)
-
-    new_image = Image.fromarray(noisy_img)
-
-    custom_config = r'-l eng --oem 3 --psm 6'
-    extracted = pytesseract.image_to_string(img, config=custom_config)
-
-    print(extracted)
+    # print(extracted)
 
     d = pytesseract.image_to_data(img)
     print(d)
     tsv_data = csv.DictReader(StringIO(d), delimiter='\t')
     d = [row for row in tsv_data]
 
-    digit_pattern = '<[B8O0]{2}(\d+)'
+    print("New Data")
+    print(d)
+
+    digit_pattern = '[A4]{1}(\d+)'
     
     extracted_text = []
     
     for row in d:
-        if int(float(row['conf'])) > 60:
-            match = re.search(digit_pattern, row['text'])
-            if match:
-                extracted_text.append(match.group(1))
-    
+        print(float(row['conf']))
+        match = re.search(digit_pattern, row['text'])
+        print("Match")
+        print(row['text'])
+        print(match)
+        if match:
+            extracted_text.append("A" + match.group(1))
+        # if int(float(row['conf'])) > 60:
+
+    if isinstance(extracted_text, list):
+        # extracted_text = extracted_text[-1]
+        extracted_text = extracted_text[0]
+
+    print(extracted_text)
+
     if not extracted_text:
         return {"status": "error", "message": "Kindly retry"}
     
