@@ -8,13 +8,16 @@ ENV https_proxy http://172.30.100.1:8080
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Python 3.10
-RUN apt-get update && apt-get install -y python3.10
+RUN apt-get update && apt-get install -y python3.10 python3-pip
+
+# Set the path to the pip binary in the PATH environment variable
+ENV PATH="/usr/bin:$PATH"
 
 # Install Tesseract
 RUN apt-get update && apt-get install -y tesseract-ocr
 
 # Install FastAPI and other dependencies
-RUN python3.10 -m pip install --no-cache-dir --upgrade fastapi uvicorn pytesseract
+RUN pip install --no-cache-dir --upgrade fastapi uvicorn pytesseract
 
 # Copy the FastAPI app code
 COPY . /app
@@ -23,4 +26,4 @@ COPY . /app
 WORKDIR /app
 
 # Start the FastAPI app
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.00.0.0", "--port", "8000"]
