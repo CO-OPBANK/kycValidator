@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM python:3.10
 
 # Set proxy environment variables
 ENV http_proxy http://172.30.100.1:8080
@@ -7,17 +7,14 @@ ENV https_proxy http://172.30.100.1:8080
 # Set DEBIAN_FRONTEND to non-interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Python 3.10
-RUN apt-get update && apt-get install -y python3-pip
+# Install Dependancies
+RUN apt-get update && apt-get install -y python3-pip tesseract-ocr tesseract-ocr-eng
 
 # Set the path to the pip binary in the PATH environment variable
 ENV PATH="/usr/bin:$PATH"
 
-# Install Tesseract
-RUN apt-get update && apt-get install -y tesseract-ocr
-
 # Install FastAPI and other dependencies
-RUN pip install --no-cache-dir --upgrade fastapi uvicorn pytesseract
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the FastAPI app code
 COPY . /app
