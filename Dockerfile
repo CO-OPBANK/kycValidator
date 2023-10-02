@@ -10,9 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install Dependancies
 RUN apt-get update && apt-get install -y python3-pip tesseract-ocr tesseract-ocr-eng
 
-# Set the path to the pip binary in the PATH environment variable
-ENV PATH="/usr/bin:$PATH"
-
 # Install FastAPI and other dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
