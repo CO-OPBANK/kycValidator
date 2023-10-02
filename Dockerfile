@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y python3.10 python3-pip
 # Set the path to the pip binary in the PATH environment variable
 ENV PATH="/usr/bin:$PATH"
 
+# Set the Python path
+ENV PYTHONPATH=/usr/local/lib/python3.10/site-packages
+
 # Install Tesseract
 RUN apt-get update && apt-get install -y tesseract-ocr
 
