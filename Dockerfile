@@ -1,5 +1,9 @@
 FROM ubuntu:20.04
 
+# Set proxy environment variables
+ENV http_proxy http://172.30.100.1:8080
+ENV https_proxy http://172.30.100.1:8080
+
 # Install Python 3.10
 RUN apt-get update && apt-get install -y python3.10
 
