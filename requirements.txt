@@ -8,3 +8,5 @@ pillow
 pandas
 python-dotenv
 pdf2image
+tensorflow
+pydantic

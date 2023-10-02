@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from routers import ocr
 
 # FastAPI
@@ -15,3 +15,10 @@ app.include_router(ocr.router)
 async def root():
     return {"message": "CO-OP Bank KYC Validator"}
 
+
+@app.websocket("/ws")
+async def health_check(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_json({"msg":data})
