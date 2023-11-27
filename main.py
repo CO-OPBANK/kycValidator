@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket
-from routers import ocr
+from routers import ocr , liveness
 
 # FastAPI
 app = FastAPI(
@@ -9,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(ocr.router)
+app.include_router(liveness.router)
 
 
 @app.get("/")

@@ -10,3 +10,4 @@ python-dotenv
 pdf2image
 tensorflow
 pydantic
+boto3

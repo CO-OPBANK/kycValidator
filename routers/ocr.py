@@ -44,44 +44,44 @@ def extract_data(img: dict):
     return get_krapin(image)
 
 
-def load_model():
-    model = tf.keras.models.load_model('path/to/your/model')
-    return model
+# def load_model():
+#     model = tf.keras.models.load_model('path/to/your/model')
+#     return model
+#
+#
+# face_model = load_model()
 
 
-face_model = load_model()
+# def process_image(image_str):
+#     # Convert the base64-encoded image to a numpy array
+#     image = Image.open(BytesIO(base64.b64decode(image_str)))
+#     image = np.array(image)
+#
+#     # Preprocess the image (resize, normalize, etc.) to match the model's input shape
+#     # Modify the preprocessing based on the requirements of your face recognition model
+#     image = tf.image.resize(image, [224, 224])
+#     image = image / 255.0  # Normalize the image to values between 0 and 1
+#
+#     return image
 
 
-def process_image(image_str):
-    # Convert the base64-encoded image to a numpy array
-    image = Image.open(BytesIO(base64.b64decode(image_str)))
-    image = np.array(image)
-
-    # Preprocess the image (resize, normalize, etc.) to match the model's input shape
-    # Modify the preprocessing based on the requirements of your face recognition model
-    image = tf.image.resize(image, [224, 224])
-    image = image / 255.0  # Normalize the image to values between 0 and 1
-
-    return image
-
-
-@router.post("/face_comparison")
-async def face_comparison(data: dict):
-    # print(data["data"][0])
-
-    # return data["data"]
-
-    image1_bytes = base64.b64decode(data["data"][0]["image1"])
-    image2_bytes = base64.b64decode(data["data"][1]["image2"])
-
-    image1 = tf.image.decode_image(image1_bytes)
-    image2 = tf.image.decode_image(image2_bytes)
-
-    features1 = tf.face.face_encodings(image1)
-    features2 = tf.face.face_encodings(image2)
-
-    comparison_results = tf.math.reduce_mean(tf.math.squared_difference(features1, features2))
-
-    compatibility_score = 100 - comparison_results
-
-    return {"compatibility_score": compatibility_score}
+# @router.post("/face_comparison")
+# async def face_comparison(data: dict):
+#     # print(data["data"][0])
+#
+#     # return data["data"]
+#
+#     image1_bytes = base64.b64decode(data["data"][0]["image1"])
+#     image2_bytes = base64.b64decode(data["data"][1]["image2"])
+#
+#     image1 = tf.image.decode_image(image1_bytes)
+#     image2 = tf.image.decode_image(image2_bytes)
+#
+#     features1 = tf.face.face_encodings(image1)
+#     features2 = tf.face.face_encodings(image2)
+#
+#     comparison_results = tf.math.reduce_mean(tf.math.squared_difference(features1, features2))
+#
+#     compatibility_score = 100 - comparison_results
+#
+#     return {"compatibility_score": compatibility_score}
