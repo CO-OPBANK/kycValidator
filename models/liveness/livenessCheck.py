@@ -10,6 +10,7 @@ client = session.client('rekognition')
 
 def do_liveness_check(session_id):
     response = client.get_face_liveness_session_results(SessionId=session_id)
+    print('Response: ' + response)
 
     confidence = response.get("Confidence")
     status = response.get("Status")
