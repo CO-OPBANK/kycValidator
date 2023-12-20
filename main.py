@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket
-# from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from routers import ocr , liveness
 
 # FastAPI
@@ -10,18 +10,18 @@ app = FastAPI(
 )
 
 # Configure CORS
-# origins = [
-#     "http://localhost:3000",  # Replace with the origin of your React app
-#     # "https://yourproductionapp.com",  # Add production origin if needed
-# ]
-#
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],  # Allow all HTTP methods
-#     allow_headers=["*"],  # Allow all HTTP headers
-# )
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  # Add your React app's URL
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(ocr.router)
 app.include_router(liveness.router)

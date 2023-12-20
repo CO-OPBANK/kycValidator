@@ -15,5 +15,5 @@ async def get_create_session():
 
 
 @router.get("/check/{session_id}")
-async def check_liveness(session_id: str):
+async def check_liveness(session_id):
     return do_liveness_check(session_id)
