@@ -6,9 +6,22 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  
+env:
+  # Additional variables can be created using the format below.
+  # The info available to the push event can be found here: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#push
+  GITHUB_REPO: ${{ github.event.repository.name }}
+  GITHUB_PUSHER_NAME: ${{ github.event.pusher.name }}
+  GITHUB_PUSHER_EMAIL: ${{ github.event.pusher.email }}
+  GITHUB_HEAD_COMMIT: ${{ github.event.head_commit.url}}
+  GITHUB_MESG: ${{ github.event.head_commit.message }}
+  GITHUB_COMPARE: ${{ github.event.compare }}
+  GITHUB_VERSION: ${{ github.event.compare }}
+      
 
 jobs:
-  build:
+  dockerbuild:
     runs-on: ubuntu-latest
     steps:
       -
