@@ -47,5 +47,30 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          push: false
+          push: true
           tags: user/app:latest
+
+
+  deploy-sit:
+    name: Deploy-SIT
+    runs-on: ubuntu-latest
+    environment: 'sit'
+    needs: dockerbuild
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          repository: CO-OPBANK/deployments
+          ref: master
+          fetch-depth: 0
+          token: ${{ secrets.MY_GIT_TOKEN }}
+      - name: Version Image to Current Deployment
+        run: |-
+          pwd && ls -lrt
+          cd sit/kycvalidator
+          pwd && ls -lrt
+          currentimage=$(cat deployment.yaml | grep image: | awk -F ':' '{print $NF}')
+          echo currentimage $currentimage
+          #sed -i s#$value#${{ needs.docker.outputs.short_sha }}#g deployment.yaml
+          cat deployment.yaml | grep image:
