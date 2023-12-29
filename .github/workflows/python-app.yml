@@ -22,7 +22,6 @@ env:
 
 jobs:
   dockerbuild:
-    name: DockerBuild
     runs-on: ubuntu-latest
     steps:
       -
