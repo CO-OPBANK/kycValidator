@@ -37,3 +37,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }} 
+      # Create image tag
+      - name: Add SHORT_SHA env property with HEAD
+        id: getversion
+        run: echo "::set-output name=version::$(echo api-${GITHUB_SHA::8})"
