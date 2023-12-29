@@ -22,6 +22,7 @@ env:
 
 jobs:
   dockerbuild:
+    name: DockerBuild
     runs-on: ubuntu-latest
     steps:
       -
@@ -59,6 +60,10 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator:${{ steps.getbuildversion.outputs.buildversion }}
           cache-from: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
           cache-to: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
+
+    # Make outputs SHORT_SHA available to next bump job
+    outputs:
+      short_sha: ${{ steps.getbuildversion.outputs.buildversion }}
           
   deploy-sit:
     name: Deploy-SIT
@@ -80,8 +85,8 @@ jobs:
           cd sit/kycvalidator
           pwd && ls -lrt
           currentimage=$(cat deployment.yaml | grep image: | awk -F ':' '{print $NF}')
-          echo currentimage $currentimage
-          echo newimage ${{ needs.dockerbuild.outputs.buildversion }}
+          echo print currentimage $currentimage
+          echo print newimage ${{ needs.dockerbuild.outputs.buildversion }}
           sed -i s#$currentimage#${{ needs.dockerbuild.outputs.buildversion }}#g deployment.yaml
           cat deployment.yaml | grep image:
           
