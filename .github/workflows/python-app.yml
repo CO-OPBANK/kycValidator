@@ -44,19 +44,23 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: microservices/kycvalidator:latest
-
+          
       # Create image tag
       - name: Add SHORT_SHA env property with HEAD
         id: getversion
         run: echo "::set-output name=version::$(echo api-${GITHUB_SHA::8})"
-
-
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator:${{ steps.getversion.outputs.version }}
+          cache-from: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
+          cache-to: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
+          
   deploy-sit:
     name: Deploy-SIT
     runs-on: ubuntu-latest
