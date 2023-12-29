@@ -82,6 +82,7 @@ jobs:
           pwd && ls -lrt
           currentimage=$(cat deployment.yaml | grep image: | awk -F ':' '{print $NF}')
           echo currentimage $currentimage
+          echo newimage ${{ needs.dockerbuild.outputs.buildversion }}
           sed -i s#$currentimage#${{ needs.dockerbuild.outputs.buildversion }}#g deployment.yaml
           cat deployment.yaml | grep image:
           
