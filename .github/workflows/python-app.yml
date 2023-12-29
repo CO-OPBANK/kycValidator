@@ -83,3 +83,17 @@ jobs:
           echo currentimage $currentimage
           sed -i s#$currentimage#${{ needs.dockerbuild.outputs.short_sha }}#g deployment.yaml
           cat deployment.yaml | grep image:
+          
+      - name: Commit files
+        run: |
+          git config --local user.email ${{github.event.pusher.email}}
+          git config --local user.name ${{ github.event.pusher.name }}
+          git add .
+          git commit -a -m "updated image version to : ${{ needs.dockerbuild.outputs.short_sha }}: Message: ${{ github.event.head_commit.message }}:Repo:${{ github.event.head_commit.url}}"
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: CO-OPBANK/deployments
+          branch: master
+          github_token: ${{ secrets.MY_GIT_TOKEN }}
