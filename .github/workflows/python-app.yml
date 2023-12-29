@@ -82,5 +82,5 @@ jobs:
           pwd && ls -lrt
           currentimage=$(cat deployment.yaml | grep image: | awk -F ':' '{print $NF}')
           echo currentimage $currentimage
-          #sed -i s#$value#${{ needs.docker.outputs.short_sha }}#g deployment.yaml
+          sed -i s#$currentimage#${{ needs.dockerbuild.outputs.short_sha }}#g deployment.yaml
           cat deployment.yaml | grep image:
