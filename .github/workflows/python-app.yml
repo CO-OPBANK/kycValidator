@@ -22,6 +22,7 @@ env:
 
 jobs:
   dockerbuild:
+    name: Dockerbuild
     runs-on: ubuntu-latest
     steps:
       -
@@ -49,6 +50,11 @@ jobs:
         with:
           push: false
           tags: microservices/kycvalidator:latest
+
+      # Create image tag
+      - name: Add SHORT_SHA env property with HEAD
+        id: getversion
+        run: echo "::set-output name=version::$(echo api-${GITHUB_SHA::8})"
 
 
   deploy-sit:
