@@ -24,6 +24,11 @@ jobs:
   dockerbuild:
     name: DockerBuild
     runs-on: ubuntu-latest
+
+    # Make outputs SHORT_SHA available to next bump job
+    outputs:
+      short_sha: ${{ steps.getbuildversion.outputs.buildversion }}
+   
     steps:
       -
         name: Checkout
@@ -61,10 +66,7 @@ jobs:
           cache-from: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
           cache-to: ${{ secrets.DOCKERHUB_USERNAME }}/kycvalidator
 
-    # Make outputs SHORT_SHA available to next bump job
-    outputs:
-      short_sha: ${{ steps.getbuildversion.outputs.buildversion }}
-          
+      
   deploy-sit:
     name: Deploy-SIT
     runs-on: ubuntu-latest
