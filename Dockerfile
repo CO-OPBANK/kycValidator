@@ -7,7 +7,7 @@ WORKDIR /app
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Dependencies
-RUN apt-get update && apt-get install -y python3-pip tesseract-ocr tesseract-ocr-eng
+RUN apt-get update && apt-get install -y python3-pip tesseract-ocr tesseract-ocr-eng  poppler-utils
 
 # Additional dependencies for libGL.so.1
 RUN apt-get install -y libgl1-mesa-glx
