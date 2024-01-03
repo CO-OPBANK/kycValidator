@@ -1,16 +1,12 @@
 import re
 import pdf2image
-from utils import format_image
 from services import extract_text
-import pytesseract
 
 
 def get_krapin(img):
 
     images = pdf2image.convert_from_bytes(img)
     image = images[0]
-    # text = pytesseract.image_to_string(image)
-    # print(text)
 
     get_text = extract_text(image)
 
