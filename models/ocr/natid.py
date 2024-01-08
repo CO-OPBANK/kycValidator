@@ -31,6 +31,11 @@ def get_natid(img):
 
     print(extracted_serial)
 
+    # Trim the serial number to 9 digits
+    if isinstance(extracted_serial, list):
+        extracted_serial = extracted_serial[0]
+        extracted_serial = extracted_serial[:9]
+
     if not extracted_serial:
         return {"status": "error", "message": "Kindly retry"}
 
