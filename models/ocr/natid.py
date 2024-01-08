@@ -16,8 +16,6 @@ def get_natid(img):
         if match:
             extracted_idno.append(match.group(1))
 
-    print(extracted_idno)
-
     if not extracted_idno:
         return {"status": "error", "message": "Kindly retry"}
 
@@ -28,8 +26,6 @@ def get_natid(img):
         match = re.search(serial_pattern, row)
         if match:
             extracted_serial.append(match.group(1))
-
-    print(extracted_serial)
 
     # Trim the serial number to 9 digits
     if isinstance(extracted_serial, list):
