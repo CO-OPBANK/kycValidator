@@ -51,6 +51,6 @@ def format_image(img):
     (bottomy, bottomx) = (np.max(y), np.max(x))
     out = img[topy: bottomy + 1, topx: bottomx + 1, :]
 
-    out_rgb = cv2.cvtColor(out, cv2.COLOR_BGR2RGB)
+    out_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     return out_rgb

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 def extract_text(img):
     load_dotenv()
 
-    tess_config = os.getenv("TESS_CONFIG")
+    tess_config = os.getenv("TESS_CONFIG", "--psm 11 --oem 3")
 
     img_data = pytesseract.image_to_data(img, config=tess_config, output_type=pytesseract.Output.DATAFRAME)
 
